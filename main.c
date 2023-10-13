@@ -24,30 +24,16 @@ int main (int argc, char *argv[])
 	}
 	
 	char curChar;
-	char *curWord = "";
-	char *temp;
+	char *curWord = malloc(256);
 	char *wordsArr[0];
-	while((curChar = fgetc(fio)) != EOF)
-	{
-		// if its a new line, put word into array and
-		// reset word
-		if (curChar == '\n')
-		{
-			printf("%s\n", curWord);
-			curWord = "";
-			continue;
-		}
-		// put character into word if its not a new line
-		// extra room for word
-		temp = malloc(strlen(curWord) + 1);
-		temp = strncpy(temp, curWord, strlen(curWord));
-		temp[strlen(curWord)] = curChar;
 
-		curWord	= (char *) malloc(strlen(temp)+1);
-		curWord = strcpy(curWord,temp);
-		curWord[strlen(temp)] = '\0';
+	while (fgets(curWord, sizeof(curWord), fio) != NULL)
+	{
+		curWord[strcspn(curWord, "\n")] = 0;
+
+		printf("%s\n", curWord);
 	}
-	free(temp);
+	free(curWord);
 	fclose(fio); // close the file
 	
 	return 0;
