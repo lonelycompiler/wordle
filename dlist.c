@@ -14,22 +14,20 @@ DList* DL_pushback (DList *LL, char *new_data)
 		LL = (DList *) malloc(sizeof(DList));
 
 		// populate DList, new_data goes into head
-		LL->head = &temp;
-		LL->tail = &temp;
+		LL->head  = temp;
+		LL->tail  = temp;
 	}
 	else
 	{
-		//Node *tail = LL->tail;
 		LL->tail->next = temp;
-		temp->prev = LL->tail;
-		LL->tail = &temp;
+		LL->tail = temp;
 	}
 	return LL;
 }
 
 void DL_print (DList *LL)
 {
-	Node *temp = *LL->head;
+	Node *temp = LL->head;
 	while (temp != LL->tail)
 	{
 		printf("%s, ", temp->data);

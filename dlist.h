@@ -9,14 +9,13 @@ struct Node
 {
 	char *data;
 	Node *next;
-	Node *prev;
 };
 
 typedef struct DList DList;
 struct DList
 {
-	Node **head;
-	Node **tail;
+	Node *head;
+	Node *tail;
 };
 
 // insert new data into the DList
