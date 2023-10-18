@@ -1,8 +1,11 @@
-all: main dlist
-	gcc dlist.o main.o -g -o a.out
+all: main linkedlist
+	gcc linkedlist.o main.o -g -o a.out
 
 main: main.c
 	gcc -c main.c -g
 
-dlist: dlist.c
-	gcc -c dlist.c -g
+linkedlist: linkedlist.c
+	gcc -c linkedlist.c -g
+
+clean:
+	rm *.o

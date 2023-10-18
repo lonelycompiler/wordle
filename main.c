@@ -1,4 +1,4 @@
-#include "dlist.h"
+#include "linkedlist.h"
 
 int main (int argc, char *argv[])
 {
@@ -22,20 +22,19 @@ int main (int argc, char *argv[])
 	}
 	
 	char *curWord = malloc(256);
-	DList *linkedlist = NULL;
+	Node *head = NULL;
 	int counter = 0;
 	while (fgets(curWord, sizeof(curWord), fio) != NULL)
 	{
 		curWord[strcspn(curWord, "\n")] = 0;
 
-		//printf("%s\n", curWord);
-		linkedlist = DL_pushback(linkedlist, curWord);
-		if (++counter == 3) break;
+		head = insertToLL (head, curWord);
+		if (++counter == 5) break;
 	}
-	DL_print(linkedlist);
+	printLinkedList (head);
 	free(curWord);
 	fclose(fio); // close the file
-	//DL_free(linkedlist);
+	freeLinkedList(head);
 	
 	return 0;
 }
