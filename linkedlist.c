@@ -3,9 +3,10 @@
 Node* insertToLL (Node *head, char *newData)
 {
 	// create new Node
-	Node *newNode = malloc(sizeof *newNode);
+	Node *newNode = malloc(sizeof(Node));
 	newNode->data = newData;
 	newNode->next = NULL;
+	Node *iterator = NULL;
 
 	// if Linked List does not exist assign head to current node
 	if (head == NULL)
@@ -14,12 +15,12 @@ Node* insertToLL (Node *head, char *newData)
 	}
 	else // insert temp to end of linked list
 	{
-		void *iterator = head;
-		while (((Node *)iterator)->next != NULL)
+		iterator = head;
+		while (iterator->next != NULL)
 		{
-			iterator = ((Node *)iterator)->next;
+			iterator = iterator->next;
 		}
-		((Node *)iterator)->next = newNode;
+		iterator->next = newNode;
 	}
 	return head;
 }

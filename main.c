@@ -31,6 +31,7 @@ int main (int argc, char *argv[])
 		head = insertToLL (head, curWord);
 		if (++counter == 5) break;
 	}
+	printf("\n");
 	printLinkedList (head);
 	free(curWord);
 	fclose(fio); // close the file

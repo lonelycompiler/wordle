@@ -8,7 +8,7 @@ typedef struct Node Node;
 struct Node
 {
 	char *data;
-	Node *next;
+	struct Node *next;
 };
 
 // insert new data into the linked list

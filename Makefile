@@ -9,3 +9,4 @@ linkedlist: linkedlist.c
 
 clean:
 	rm *.o
+	rm a.out
