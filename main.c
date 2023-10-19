@@ -22,20 +22,36 @@ int main (int argc, char *argv[])
 	}
 	
 	char *curWord = malloc(256);
-	Node *head = NULL;
+	struct List *LL = NULL;
 	int counter = 0;
+
 	while (fgets(curWord, sizeof(curWord), fio) != NULL)
 	{
 		curWord[strcspn(curWord, "\n")] = 0;
-
-		head = insertToLL (head, curWord);
-		if (++counter == 5) break;
+		insertIntoLL (&LL, curWord);
 	}
-	printf("\n");
-	printLinkedList (head);
-	free(curWord);
-	fclose(fio); // close the file
-	freeLinkedList(head);
+
 	
+	fclose(fio); // close the file
+
+	printLinkedList (&LL);
+	free(curWord);
+	freeLinkedList(&LL);
+
+	// ### debugging that it works ###
+	// TODO: DELETE THIS LATER
+	/*
+	struct List *LL2 = NULL;
+	char *abcde[5] = {"a", "b", "c", "d", "e"};
+	for (int i = 0; i < 5; i++)
+	{
+
+		insertIntoLL (&LL2, abcde[i]);
+	}
+	printLinkedList (&LL2);
+	freeLinkedList(&LL2);
+	*/
+
+		
 	return 0;
 }

@@ -4,20 +4,25 @@
 #include <string.h>
 #include <stdlib.h>
 
-typedef struct Node Node;
 struct Node
 {
 	char *data;
 	struct Node *next;
 };
 
+struct List
+{
+	struct Node *head;
+	int size;
+};
+
 // insert new data into the linked list
-Node* insertToLL (Node *head, char *new_data);
+void insertIntoLL (struct List **LL, char *newData);
 
 // print the linked list
-void printLinkedList (Node *head);
+void printLinkedList (struct List **LL);
 
 // delete the linkedlist
-void freeLinkedList (Node *head);
+void freeLinkedList (struct List **LL);
 
 #endif

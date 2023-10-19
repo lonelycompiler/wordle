@@ -1,33 +1,39 @@
 #include "linkedlist.h"
 
-Node* insertToLL (Node *head, char *newData)
+void insertIntoLL (struct List **LL, char *newData)
 {
 	// create new Node
-	Node *newNode = malloc(sizeof(Node));
-	newNode->data = newData;
+	struct Node *newNode = malloc(sizeof(struct Node));
+	newNode->data = malloc(sizeof(char)*strlen(newData)+1);
+	newNode->data = strncpy(newNode->data, newData, strlen(newData));
+	newNode->data[strlen(newData)] = '\0';
 	newNode->next = NULL;
-	Node *iterator = NULL;
+	struct Node *iterator = NULL;
 
 	// if Linked List does not exist assign head to current node
-	if (head == NULL)
+	if (!*LL)
 	{
-		head = newNode;
+		*LL = malloc(sizeof (struct List));
+		(*LL)->head = newNode;
+		(*LL)->head->next = NULL;
+		if (!*LL) perror("Error creating linked list within insertIntoLL()\n");
+		//printf("created LL, head = %s\n", (*LL)->head->data);
 	}
 	else // insert temp to end of linked list
 	{
-		iterator = head;
+		iterator = (*LL)->head;
 		while (iterator->next != NULL)
 		{
 			iterator = iterator->next;
 		}
 		iterator->next = newNode;
 	}
-	return head;
+	(*LL)->size = ((*LL)->size)+1;
 }
 
-void printLinkedList (Node *head)
+void printLinkedList (struct List **LL)
 {
-	Node *temp = head;
+	struct Node *temp = (*LL)->head;
 	while (temp != NULL && temp->next != NULL)
 	{
 		printf("%s, ", temp->data);
@@ -40,12 +46,13 @@ void printLinkedList (Node *head)
 	}
 }
 
-void freeLinkedList (Node *head)
+void freeLinkedList (struct List **LL)
 {
-	Node *temp = head;
+	struct Node *temp = (*LL)->head;
 	while (temp != NULL)
 	{
-		Node *next = temp->next;
+		struct Node *next = temp->next;
+		free(temp->data);
 		free(temp);
 		temp = next;
 	}
