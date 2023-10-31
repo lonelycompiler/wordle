@@ -33,6 +33,11 @@ void insertIntoLL (struct List **LL, char *newData)
 
 void printLinkedList (struct List **LL)
 {
+	if ((*LL) == NULL)
+	{
+		perror("List does not exist");
+		return;
+	}
 	struct Node *temp = (*LL)->head;
 	while (temp != NULL && temp->next != NULL)
 	{

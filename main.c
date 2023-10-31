@@ -1,24 +1,19 @@
 #include "linkedlist.h"
+#include <time.h>
+#include <limits.h>
+#include <inttypes.h>
+#include <stdlib.h>
 
-int main (int argc, char *argv[])
+struct List* getListFromFile(char *pathToFile)
 {
-	// *char[] words <- file containing words on each new line
-	// pick random word from words array
-	// ask player for input
-	// give result
-	// if player has all G: they win
-	// if they don't have all letters correct,
-		// if they don't have any tries left: they lose
-		// if they have tries left: go to asking player for input
 	FILE *fio;
-	char *pathname = "words.txt";
 
-	fio = fopen(pathname, "r"); // open the file
+	fio = fopen(pathToFile, "r"); // open the file
 	
 	// if theres an error in the file
 	if (ferror(fio))
 	{
-		return -1;
+		return NULL;
 	}
 	
 	char *curWord = malloc(256);
@@ -33,25 +28,37 @@ int main (int argc, char *argv[])
 
 	
 	fclose(fio); // close the file
-
-	printLinkedList (&LL);
 	free(curWord);
-	freeLinkedList(&LL);
+	return LL;
+};
 
-	// ### debugging that it works ###
-	// TODO: DELETE THIS LATER
-	/*
-	struct List *LL2 = NULL;
-	char *abcde[5] = {"a", "b", "c", "d", "e"};
-	for (int i = 0; i < 5; i++)
-	{
+// Get a random number within the bounds of the list
+uint8_t getRandNumInListBounds(uint8_t listSize)
+{
+	srand(time(NULL)); // seed with current time
+	double randomNum = (double) rand() / INT_MAX;
+	uint8_t numWithinBounds = (uint8_t) ((randomNum * 10) % (listSize + 1));
+	return numWithinBounds;
+}
 
-		insertIntoLL (&LL2, abcde[i]);
-	}
-	printLinkedList (&LL2);
-	freeLinkedList(&LL2);
-	*/
+int main (int argc, char *argv[])
+{
+	// *char[] words <- file containing words on each new line
+	// pick random word from words array
+	// ask player for input
+	// give result
+	// if player has all G: they win
+	// if they don't have all letters correct,
+		// if they don't have any tries left: they lose
+		// if they have tries left: go to asking player for input
+	
+	struct List *list = getListFromFile("words.txt");
+	uint8_t randIndex = getRandNumInListBounds(list->size);
+	printf("bounds = %d\n", list->size);
+	printf("randIndex = %ld\n", (long) randIndex);
 
-		
+	//printLinkedList (&list);
+	freeLinkedList(&list);
+
 	return 0;
 }
